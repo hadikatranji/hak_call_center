@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--
+    =============================================================================
+    hak_call_center - res_partner_views.xml
+    Author:  Hadi Katranji
+    Created: 2026-03-24
+
+    1. Adds Call Center Agent field to the contact form (after Salesperson)
+    2. Adds domain filter on Salesperson field (Champions only, role_id=9)
+    =============================================================================
+    -->
+
+    <!-- Inherit the main contact form -->
+    <record id="view_partner_form_inherit_call_center" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.hak_call_center</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <!-- HAK: Filter salesperson to Champions only (role_id=9) -->
+            <field name="user_id" position="attributes">
+                <attribute name="domain">[('role_id', '=', 9), ('share', '=', False)]</attribute>
+                <attribute name="options">{'no_create': True}</attribute>
+            </field>
+
+            <!-- HAK: Add Call Center Agent field after Salesperson -->
+            <field name="user_id" position="after">
+                <field name="hak_call_center_id"
+                       options="{'no_create': True, 'no_open': True}"/>
+            </field>
+
+        </field>
+    </record>
+
+</odoo>

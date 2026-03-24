@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--
+    =============================================================================
+    hak_call_center - zone_zone_views.xml
+    Author:  Hadi Katranji
+    Created: 2026-03-24
+
+    Adds "Call Center" tab to the zone form view.
+    Inherits the existing zone.zone form from das_zone_location.
+    =============================================================================
+    -->
+
+    <!-- Add Call Center agent field + tab to zone form -->
+    <record id="view_zone_zone_form_inherit_call_center" model="ir.ui.view">
+        <field name="name">zone.zone.form.inherit.hak_call_center</field>
+        <field name="model">zone.zone</field>
+        <field name="inherit_id" ref="das_zone_location.zone_view_form"/>
+        <field name="arch" type="xml">
+            <!-- HAK: Add Call Center agent field in the header area,
+                 next to warehouse/delivery fields -->
+            <field name="warehouse_id" position="before">
+                <field name="call_center_id"
+                       options="{'no_create': True, 'no_open': True}"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
