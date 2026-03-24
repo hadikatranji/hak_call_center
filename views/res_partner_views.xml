@@ -6,7 +6,7 @@
     Author:  Hadi Katranji
     Created: 2026-03-24
 
-    1. Adds Call Center Agent field to the contact form (after Salesperson)
+    1. Adds Call Center Agent field on Sales & Purchases tab (after Salesperson)
     2. Adds domain filter on Salesperson field (Champions only, role_id=9)
     =============================================================================
     -->
@@ -19,16 +19,16 @@
         <field name="arch" type="xml">
 
             <!-- HAK: Filter salesperson to Champions only (role_id=9) -->
-            <field name="user_id" position="attributes">
+            <xpath expr="//page[@name='sales_purchases']//field[@name='user_id']" position="attributes">
                 <attribute name="domain">[('role_id', '=', 9), ('share', '=', False)]</attribute>
                 <attribute name="options">{'no_create': True}</attribute>
-            </field>
+            </xpath>
 
-            <!-- HAK: Add Call Center Agent field after Salesperson -->
-            <field name="user_id" position="after">
+            <!-- HAK: Add Call Center Agent field after Salesperson on Sales & Purchases tab -->
+            <xpath expr="//page[@name='sales_purchases']//field[@name='user_id']" position="after">
                 <field name="hak_call_center_id"
                        options="{'no_create': True, 'no_open': True}"/>
-            </field>
+            </xpath>
 
         </field>
     </record>
