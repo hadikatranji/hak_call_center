@@ -63,7 +63,6 @@ class ResPartner(models.Model):
             ('zone_id', '!=', False),
             ('zone_id.call_center_id', '!=', False),
             ('hak_call_center_id', '=', False),
-            ('customer_rank', '>', 0),
         ])
         count = 0
         for partner in partners:

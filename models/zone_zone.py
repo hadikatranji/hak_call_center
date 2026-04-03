@@ -40,7 +40,6 @@ class ZoneZone(models.Model):
             for zone in self:
                 partners = self.env['res.partner'].sudo().search([
                     ('zone_id', '=', zone.id),
-                    ('customer_rank', '>', 0),
                 ])
                 if partners:
                     partners.write({'hak_call_center_id': new_agent_id})
