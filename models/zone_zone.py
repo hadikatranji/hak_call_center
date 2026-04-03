@@ -10,7 +10,7 @@
 #
 # Future: upgrade to Many2many if multiple CC agents per zone are needed.
 # =============================================================================
-from odoo import fields, models
+from odoo import api, fields, models
 
 # Role ID for Call Center in res_role table
 # Verified via: SELECT id, name FROM res_role WHERE id = 8;
@@ -32,3 +32,16 @@ class ZoneZone(models.Model):
         help='Call center agent responsible for this zone. '
              'Auto-fills on contacts when their zone is set.',
     )
+
+    def write(self, vals):
+        res = super().write(vals)
+        if 'call_center_id' in vals:
+            new_agent_id = vals['call_center_id']
+            for zone in self:
+                partners = self.env['res.partner'].sudo().search([
+                    ('zone_id', '=', zone.id),
+                    ('customer_rank', '>', 0),
+                ])
+                if partners:
+                    partners.write({'hak_call_center_id': new_agent_id})
+        return res

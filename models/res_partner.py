@@ -41,14 +41,12 @@ class ResPartner(models.Model):
 
     # ------------------------------------------------------------------
     # HAK: Auto-fill CC agent when zone changes
-    # Only fills if call_center_id is currently empty.
-    # This respects manual overrides — if someone already set a CC agent,
-    # changing the zone won't overwrite their choice.
+    # Always sets CC agent from zone — zone is the authoritative source.
     # ------------------------------------------------------------------
     @api.onchange('zone_id')
     def _onchange_zone_id_set_call_center(self):
         for partner in self:
-            if partner.zone_id and partner.zone_id.call_center_id and not partner.hak_call_center_id:
+            if partner.zone_id and partner.zone_id.call_center_id:
                 partner.hak_call_center_id = partner.zone_id.call_center_id
 
     # ------------------------------------------------------------------
