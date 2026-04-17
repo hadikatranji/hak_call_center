@@ -20,10 +20,13 @@
             <!-- HAK: Add "Call Center" tab inside the notebook,
                  after existing tabs (Areas, Route, Geolocation, Surveyors, Retailer, Drivers) -->
             <xpath expr="//notebook" position="inside">
-                <page string="Call Center" name="call_center">
+                <page string="Team" name="call_center">
                     <group>
+                        <field name="champion_id"
+                               string="Champion (Salesperson)"
+                               options="{'no_create': True, 'no_open': True}"/>
                         <field name="call_center_id"
-                               string="Assigned Agent"
+                               string="Call Center Agent"
                                options="{'no_create': True, 'no_open': True}"/>
                     </group>
                 </page>
